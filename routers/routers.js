@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('', () => { });
+router
+  .route('/products')
+  .post(() => { });
 
 module.exports = router;
