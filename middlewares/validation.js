@@ -1,3 +1,5 @@
+const allProducts = require('../services/serviceProduct');
+
 const valueRequired = (req, res, next) => {
   const { name, quantity } = req.body;
 
@@ -27,7 +29,20 @@ const inputRequirements = (req, res, next) => {
   next();
 };
 
+const equalValue = async (req, res, next) => {
+  const { name } = req.body;
+  const products = await allProducts.getProducts();
+  const validation = products.some((product) => product.name === name);
+
+  if (validation) {
+    res.status(409).json({ message: 'Product already exists' });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   valueRequired,
   inputRequirements,
+  equalValue,
 };
