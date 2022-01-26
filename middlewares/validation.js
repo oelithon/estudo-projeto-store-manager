@@ -20,7 +20,7 @@ const inputRequirements = (req, res, next) => {
     return;
   }
 
-  if (quantity !== Number || quantity < 1) {
+  if (typeof quantity !== 'number' || quantity < 1) {
     res.status(422).json({ message: '"quantity" must be a number larger than or equal to 1' });
     return;
   }
