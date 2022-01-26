@@ -10,6 +10,7 @@ router
   .post(
     validation.valueRequired,
     validation.inputRequirements,
+    validation.equalValue,
     controllerProducts.createProduct,
   )
   .get(async (req, res) => {
