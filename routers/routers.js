@@ -16,6 +16,10 @@ router
     validation.inputRequirements,
     validation.notFoundProduct,
     controllerProducts.updateProduct,
+  )
+  .delete(
+    validation.notFoundProduct,
+    controllerProducts.deleteProduct,
   );
 
 router
