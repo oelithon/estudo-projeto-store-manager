@@ -1,4 +1,4 @@
-const allProducts = require('../services/serviceProduct');
+const serviceProduct = require('../services/serviceProduct');
 
 const valueRequired = (req, res, next) => {
   const { name, quantity } = req.body;
@@ -31,7 +31,7 @@ const inputRequirements = (req, res, next) => {
 
 const equalValue = async (req, res, next) => {
   const { name } = req.body;
-  const products = await allProducts.getProducts();
+  const products = await serviceProduct.getProducts();
   const validation = products.some((product) => product.name === name);
 
   if (validation) {
@@ -41,8 +41,20 @@ const equalValue = async (req, res, next) => {
   next();
 };
 
+const notFoundProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const product = await serviceProduct.getProductId(id);
+
+  if (product.length < 1) {
+    res.status(404).json({ message: 'Product not found' });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   valueRequired,
   inputRequirements,
   equalValue,
+  notFoundProduct,
 };
