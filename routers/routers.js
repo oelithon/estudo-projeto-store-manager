@@ -10,6 +10,12 @@ router
   .get(
     validation.notFoundProduct,
     controllerProducts.getProductId,
+  )
+  .put(
+    validation.valueRequired,
+    validation.inputRequirements,
+    validation.notFoundProduct,
+    controllerProducts.updateProduct,
   );
 
 router
