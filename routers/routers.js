@@ -6,6 +6,13 @@ const validation = require('../middlewares/validation');
 const controllerProducts = require('../controllers/controllerProtucts');
 
 router
+  .route('/products/:id')
+  .get(
+    validation.notFoundProduct,
+    controllerProducts.getProductId,
+  );
+
+router
   .route('/products')
   .post(
     validation.valueRequired,
