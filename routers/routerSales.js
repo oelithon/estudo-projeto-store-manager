@@ -6,7 +6,15 @@ const validationSales = require('../middlewares/validationSales');
 const controllerSales = require('../controllers/controllerSales');
 
 router
+  .route('/sales/:id')
+  .get(
+    validationSales.notFoundSales,
+    controllerSales.getSaleId,
+  );
+
+router
   .route('/sales')
+  .get(controllerSales.getSalesList)
   .post(
     validationSales.validateInput,
     controllerSales.createSalesProducts,
