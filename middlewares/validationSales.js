@@ -1,3 +1,5 @@
+const serviceSales = require('../services/serviceSales');
+
 const validateInput = (req, res, next) => {
   const salesProduct = req.body;
   const productId = salesProduct.filter((id) => id.product_id === undefined);
@@ -20,6 +22,18 @@ const validateInput = (req, res, next) => {
   next();
 };
 
+const notFoundSales = async (req, res, next) => {
+  const { id } = req.params;
+  const sale = await serviceSales.getSaleId(id);
+
+  if (sale.length < 1) {
+    res.status(404).json({ message: 'Sale not found' });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   validateInput,
+  notFoundSales,
 };
