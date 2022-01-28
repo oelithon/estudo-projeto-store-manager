@@ -20,6 +20,20 @@ const createSalesProducts = async (req, res) => {
   );
 };
 
+const getSalesList = async (req, res) => {
+  const salesList = await serviceSales.getSalesList();
+  return res.status(200).json(salesList);
+};
+
+const getSaleId = async (req, res) => {
+  const { id } = req.params;
+
+  const onlySale = await serviceSales.getSaleId(id);
+  return res.status(200).json(onlySale);
+};
+
 module.exports = {
   createSalesProducts,
+  getSalesList,
+  getSaleId,
 };
