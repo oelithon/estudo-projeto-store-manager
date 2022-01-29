@@ -10,6 +10,10 @@ router
   .get(
     validationSales.notFoundSales,
     controllerSales.getSaleId,
+  )
+  .put(
+    validationSales.validateInput,
+    controllerSales.updateSale,
   );
 
 router
