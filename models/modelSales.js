@@ -38,10 +38,22 @@ const getSaleId = async (id) => {
     `
     SELECT s.date, p.product_id, p.quantity FROM StoreManager.sales s
     INNER JOIN StoreManager.sales_products p
-    ON s.id = p.sale_id WHERE p.sale_id = ?
+    ON s.id = p.sale_id
+    WHERE p.sale_id = ?
     `, [id],
   );
   return onlySale;
+};
+
+const updateSale = async (id, productId, quantity) => {
+  const [sale] = await connection.execute(
+    `
+    UPDATE StoreManager.sales_products
+    SET quantity = ?
+    WHERE sale_id = ? AND product_id = ?
+    `, [quantity, id, productId],
+  );
+  return sale;
 };
 
 module.exports = {
@@ -49,4 +61,5 @@ module.exports = {
   createSalesProducts,
   getSalesList,
   getSaleId,
+  updateSale,
 };
