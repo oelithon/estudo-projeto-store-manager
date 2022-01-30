@@ -1,4 +1,5 @@
 const serviceSales = require('../services/serviceSales');
+const serviceProduct = require('../services/serviceProduct');
 
 const validateInput = (req, res, next) => {
   const salesProduct = req.body;
@@ -33,7 +34,25 @@ const notFoundSales = async (req, res, next) => {
   next();
 };
 
+const insufficientAmount = async (req, res, next) => {
+  const request = req.body;
+  const { product_id: productId, quantity } = request[0];
+
+  const products = await serviceProduct.getProducts();
+
+  const productSelected = products.filter((product) => product.id === productId);
+
+  const validationQuantity = productSelected.some((qtd) => qtd.quantity < quantity);
+
+  if (validationQuantity) {
+    res.status(422).json({ message: 'Such amount is not permitted to sell' });
+    return;
+  }
+  next();
+};
+
 module.exports = {
   validateInput,
   notFoundSales,
+  insufficientAmount,
 };
