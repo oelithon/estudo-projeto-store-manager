@@ -14,6 +14,10 @@ router
   .put(
     validationSales.validateInput,
     controllerSales.updateSale,
+  )
+  .delete(
+    validationSales.notFoundSales,
+    controllerSales.deleteSale,
   );
 
 router
