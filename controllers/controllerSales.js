@@ -53,7 +53,7 @@ const deleteSale = async (req, res) => {
 
   const salesList = await serviceSales.getSalesList();
   return res.status(200).json(salesList);
-}
+};
 
 module.exports = {
   createSalesProducts,
