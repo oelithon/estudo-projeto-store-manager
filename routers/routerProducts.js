@@ -30,9 +30,6 @@ router
     validation.equalValue,
     controllerProducts.createProduct,
   )
-  .get(async (req, res) => {
-    const products = await controllerProducts.getProducts();
-    res.status(200).json(products);
-  });
+  .get(controllerProducts.getProducts);
 
 module.exports = router;
