@@ -5,7 +5,6 @@ const modelProducts = require('../../models/modelProducts');
 const modelSales = require('../../models/modelSales');
 
 describe('modelProducts', () => {
-
   describe('endpoint para listar os produtos', () => {
     before(() => {
       const mock = [[{
