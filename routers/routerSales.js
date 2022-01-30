@@ -25,6 +25,7 @@ router
   .get(controllerSales.getSalesList)
   .post(
     validationSales.validateInput,
+    validationSales.insufficientAmount,
     controllerSales.createSalesProducts,
   );
 
