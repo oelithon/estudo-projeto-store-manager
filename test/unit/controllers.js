@@ -100,4 +100,43 @@ describe('testes na camada controllerSales', () => {
       expect(response.status.calledWith(201)).to.be.equal(true);
     });
   });
+
+  describe('endpoint para listar as vendas', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(serviceSales, 'getSalesList').resolves(true);
+    });
+    after(() => {
+      serviceSales.getSalesList.restore();
+    });
+
+    it('será validado que todas vendas estão sendo retornados.', async () => {
+      await controllerSales.getSalesList(request, response);
+
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    before(() => {
+      request.params = [{ id: 1 }];
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(serviceSales, 'getSaleId').resolves(true);
+    });
+    after(() => {
+      serviceSales.getSaleId.restore();
+    });
+
+    it('será validado que é possível listar uma determinada venda.', async () => {
+      await controllerSales.getSaleId(request, response);
+
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+  });
 });
