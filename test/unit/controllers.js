@@ -5,6 +5,7 @@ const controllerProducts = require('../../controllers/controllerProtucts');
 
 const serviceSales = require('../../services/serviceSales');
 const controllerSales = require('../../controllers/controllerSales');
+const { equal } = require('@hapi/joi/lib/base');
 
 describe('endpoint para listar os produtos', () => {
   const response = {};
@@ -16,16 +17,59 @@ describe('endpoint para listar os produtos', () => {
     response.json = sinon.stub().returns();
 
     sinon.stub(serviceProduct, 'getProducts').resolves(true);
-  })
-
+  });
   after(() => {
     serviceProduct.getProducts.restore();
   });
 
-  it('é chamado o status com o código 200', async () => {
+  it('será validado que todos produtos estão sendo retornados.', async () => {
     await controllerProducts.getProducts(request, response);
 
     expect(response.status.calledWith(200)).to.be.equal(true);
+  });
+
+  before(() => {
+    request.params = [{ id: 1 }];
+
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(serviceProduct, 'getProductId').resolves(true);
+  });
+  after(() => {
+    serviceProduct.getProductId.restore();
+  });
+
+  it('será validado que é possível listar um determinado produto.', async () => {
+    await controllerProducts.getProductId(request, response);
+
+    expect(response.status.calledWith(200)).to.be.equal(true);
+  });
+});
+
+describe('endpoint para atualizar um produto', () => {
+  const response = {};
+  const request = {};
+
+  before(() => {
+    request.params = [{ id: 1 }];
+    request.body = [{ name: 'produtoTeste', quantity: 5 }];
+
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(serviceProduct, 'updateProduct').resolves(true);
+    sinon.stub(serviceProduct, 'getProductId').resolves(true);
+  });
+  after(() => {
+    serviceProduct.updateProduct.restore();
+    serviceProduct.getProductId.restore();
+  });
+
+  it('quando a requisição é feita corretamente, o produto deve ser alterado.', async () => {
+    await controllerProducts.updateProduct(request, response);
+
+    expect(response.status(200)).to.be.equal(true);
   });
 });
 
@@ -41,8 +85,7 @@ describe('endpoint para cadastrar vendas', () => {
 
     sinon.stub(serviceSales, 'createSales').resolves(true);
     sinon.stub(serviceSales, 'createSalesProducts').resolves(true);
-  })
-
+  });
   after(() => {
     serviceSales.createSales.restore();
     serviceSales.createSalesProducts.restore();
