@@ -1,4 +1,5 @@
 const serviceSales = require('../services/serviceSales');
+const serviceProduct = require('../services/serviceProduct');
 
 const createSalesProducts = async (req, res) => {
   const salesProduct = req.body;
@@ -6,6 +7,12 @@ const createSalesProducts = async (req, res) => {
 
   const salesPromise = salesProduct.map(async (sale) => {
     const { product_id, quantity } = sale;
+
+    const product = await serviceProduct.getProductId(product_id);
+    const { name, quantity: qtdProduct } = product[0];
+    const decrement = qtdProduct - quantity;
+    await serviceProduct.updateProduct(product_id, name, decrement);
+
     const sales = await serviceSales.createSalesProducts(id, product_id, quantity);
     return sales;
   });
