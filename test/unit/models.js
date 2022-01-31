@@ -4,7 +4,7 @@ const connection = require('../../models/connection');
 const modelProducts = require('../../models/modelProducts');
 const modelSales = require('../../models/modelSales');
 
-describe('modelProducts', () => {
+describe('testes na camada modelProducts', () => {
   describe('endpoint para listar os produtos', () => {
     before(() => {
       const mock = [[{
@@ -24,7 +24,7 @@ describe('modelProducts', () => {
   });
 });
 
-describe('modelSales', () => {
+describe('testes na camada modelSales', () => {
   describe('endpoint para cadastrar vendas', () => {
     before(() => {
       const mock = [[
