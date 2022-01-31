@@ -6,7 +6,7 @@ const serviceProduct = require('../../services/serviceProduct');
 const modelSales = require('../../models/modelSales');
 const serviceSales = require('../../services/serviceSales');
 
-describe('serviceProducts', () => {
+describe('testes na camada serviceProducts', () => {
   describe('endpoint para listar os produtos', () => {
     before(() => {
       const mock = [{ "id": 1, "name": "produto", "quantity": 10 }];
@@ -22,7 +22,7 @@ describe('serviceProducts', () => {
   });
 });
 
-describe('serviceSales', () => {
+describe('testes na camada serviceSales', () => {
   describe('endpoint para cadastrar vendas', () => {
     before(() => {
       const mock = [
