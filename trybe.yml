@@ -1,7 +1,0 @@
-ignore_files:
-  - test/unit-coverage.test.js
-  - test/products.test.js
-  - test/sales.test.js
-  - .editorconfig
-  - .eslintignore
-  - .eslintrc.json
